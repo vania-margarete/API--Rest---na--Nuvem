@@ -1,0 +1,51 @@
+import javax.persistence.*;
+import lombok.Data;
+
+@Entity
+@Data
+public class Usuario {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String nome;
+    private String email;
+    private String senha;
+}
+
+@Entity
+@Data
+public class Produto {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String nome;
+    private String descricao;
+    private double preco;
+}
+
+@Entity
+@Data
+public class Pedido {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private LocalDate data;
+    @ManyToOne
+    private Usuario usuario;
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    private List<ItemPedido> itens;
+}
+
+@Entity
+@Data
+public class ItemPedido {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @ManyToOne
+    private Produto produto;
+    private int quantidade;
+    private double preco;
+    @ManyToOne
+    private Pedido pedido;
+}

@@ -1,0 +1,28 @@
+classDiagram
+    class Usuario {
+        - Long id
+        - String nome
+        - String email
+        - String senha
+    }
+    class Produto {
+        - Long id
+        - String nome
+        - String descricao
+        - double preco
+    }
+    class Pedido {
+        - Long id
+        - LocalDate data
+        - Usuario usuario
+        - List~ItemPedido~ itens
+    }
+    class ItemPedido {
+        - Long id
+        - Produto produto
+        - int quantidade
+        - double preco
+    }
+    Usuario "1" --> "0..*" Pedido
+    Pedido "1" --> "0..*" ItemPedido
+    ItemPedido "1" --> "1" Produto
